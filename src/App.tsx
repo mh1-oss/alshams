@@ -58,6 +58,7 @@ const copy = {
     contactText: 'يسعدنا أن نسمع عن مشروعك القادم أو فرص الشراكة الجديدة.',
     name: 'الاسم الكامل',
     email: 'البريد الإلكتروني',
+    whatsapp: 'رقم الواتساب (اختياري)',
     message: 'كيف يمكننا مساعدتك؟',
     send: 'إرسال الرسالة',
     sending: 'جارٍ الإرسال...',
@@ -108,6 +109,7 @@ const copy = {
     contactText: 'Tell us about your next project or a new partnership opportunity.',
     name: 'Full name',
     email: 'Email address',
+    whatsapp: 'WhatsApp number (optional)',
     message: 'How can we help?',
     send: 'Send message',
     sending: 'Sending...',
@@ -240,6 +242,7 @@ export default function App() {
       body: JSON.stringify({
         name: formData.get('name'),
         email: formData.get('email'),
+        whatsapp: formData.get('whatsapp'),
         message: formData.get('message'),
         language: lang,
       }),
@@ -483,6 +486,7 @@ export default function App() {
                 <motion.form className="contact-form" variants={morphReveal} onSubmit={submitForm}>
                   <label>{t.name}<input required name="name" type="text" /></label>
                   <label>{t.email}<input required name="email" type="email" /></label>
+                  <label>{t.whatsapp}<input name="whatsapp" type="tel" inputMode="tel" dir="ltr" /></label>
                   <label>{t.message}<textarea required name="message" rows={4} /></label>
                   {submitted && <p className="form-success"><Check size={15} />{t.success}</p>}
                   {submitError && <p className="form-error">{t.error}</p>}
