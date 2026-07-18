@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion, useScroll } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, type Variants } from 'framer-motion';
 import {
   ArrowDown,
   ArrowLeft,
@@ -158,9 +158,19 @@ function SwapText({ text }: { text: string }) {
   );
 }
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 25 },
-  visible: { opacity: 1, y: 0 },
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30, scale: 0.97, filter: 'blur(10px)' },
+  visible: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+};
+
+const morphReveal: Variants = {
+  hidden: { opacity: 0, y: 50, scale: 0.94, filter: 'blur(14px)' },
+  visible: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
+};
+
+const morphStagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.14, delayChildren: 0.08 } },
 };
 
 export default function App() {
@@ -310,7 +320,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence mode="wait">
         <motion.div
           key={lang}
           className="lang-content"
@@ -392,22 +402,22 @@ export default function App() {
                   <div><strong>06</strong><span>{t.sectors}</span></div>
                   <div><strong>02</strong><span>{t.branches}</span></div>
                 </motion.div>
-                <motion.div className="image-strip" variants={fadeUp}>
-                  <img src="/images/about-1.jpg" alt={t.galleryAlt} />
-                  <img src="/images/about-2.jpg" alt={t.galleryAlt} />
-                  <img src="/images/about-3.jpg" alt={t.galleryAlt} />
+                <motion.div className="image-strip" variants={morphStagger}>
+                  <motion.img variants={morphReveal} src="/images/about-1.jpg" alt={t.galleryAlt} />
+                  <motion.img variants={morphReveal} src="/images/about-2.jpg" alt={t.galleryAlt} />
+                  <motion.img variants={morphReveal} src="/images/about-3.jpg" alt={t.galleryAlt} />
                 </motion.div>
               </div>
             </motion.section>
 
-            <motion.section id="collection" className="collection-section section-padding" initial={{ opacity: 0, y: 45 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: .9, ease: [0.16, 1, 0.3, 1] }}>
+            <motion.section id="collection" className="collection-section section-padding" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={morphStagger}>
               <div className="stack-card-wrapper">
-                <div className="section-head collection-head">
+                <motion.div className="section-head collection-head" variants={morphReveal}>
                   <p className="eyebrow">{t.collectionEyebrow}</p>
                   <h2>{t.collectionTitle.split('\n').map((line) => <span key={line}>{line}</span>)}</h2>
                   <p className="collection-note">{t.collectionDescription}</p>
-                </div>
-                <div className="collection-stage">
+                </motion.div>
+                <motion.div className="collection-stage" variants={morphReveal}>
                   <button className="collection-panel" onClick={() => moveArea(-1)} aria-label={t.previous}>
                     <img src={workAreas[prevArea].image} alt="" />
                     <span className="panel-label"><ArrowLeft size={15} className="flip-rtl" />{t.previous}</span>
@@ -429,8 +439,8 @@ export default function App() {
                     <img src={workAreas[nextArea].image} alt="" />
                     <span className="panel-label">{t.next}<ArrowRight size={15} className="flip-rtl" /></span>
                   </button>
-                </div>
-                <div className="collection-footer">
+                </motion.div>
+                <motion.div className="collection-footer" variants={morphReveal}>
                   <div className="collection-pagination">
                     {workAreas.map((area, index) => (
                       <button key={area.en} className={index === activeArea ? 'active' : ''} onClick={() => setActiveArea(index)} aria-label={`${index + 1}`}>
@@ -438,27 +448,27 @@ export default function App() {
                       </button>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               </div>
             </motion.section>
 
-            <motion.section id="vision" className="vision-section section-padding" initial={{ opacity: 0, y: 45 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: .9, ease: [0.16, 1, 0.3, 1] }}>
+            <motion.section id="vision" className="vision-section section-padding" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={morphStagger}>
               <div className="stack-card-wrapper vision-wrapper">
-                <div className="section-head">
+                <motion.div className="section-head" variants={morphReveal}>
                   <p className="eyebrow">{t.visionEyebrow}</p>
                   <h2>{t.visionTitle.split('\n').map((line) => <span key={line}>{line}</span>)}</h2>
-                </div>
-                <p className="vision-statement">{t.visionText}</p>
-                <div className="mission-note">
+                </motion.div>
+                <motion.p className="vision-statement" variants={morphReveal}>{t.visionText}</motion.p>
+                <motion.div className="mission-note" variants={morphReveal}>
                   <span>{t.missionLabel}</span>
                   <p>{t.missionText}</p>
-                </div>
+                </motion.div>
               </div>
             </motion.section>
 
-            <motion.section id="contact" className="contact-section section-padding" initial={{ opacity: 0, y: 45 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: .9, ease: [0.16, 1, 0.3, 1] }}>
+            <motion.section id="contact" className="contact-section section-padding" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={morphStagger}>
               <div className="stack-card-wrapper contact-wrapper">
-                <div className="contact-heading">
+                <motion.div className="contact-heading" variants={morphReveal}>
                   <p className="eyebrow">{t.contactEyebrow}</p>
                   <h2>{t.contactTitle.split('\n').map((line) => <span key={line}>{line}</span>)}</h2>
                   <p>{t.contactText}</p>
@@ -469,22 +479,22 @@ export default function App() {
                     <span><MapPin size={15} />{t.branchOne}</span>
                     <span><MapPin size={15} />{t.branchTwo}</span>
                   </div>
-                </div>
-                <form className="contact-form" onSubmit={submitForm}>
+                </motion.div>
+                <motion.form className="contact-form" variants={morphReveal} onSubmit={submitForm}>
                   <label>{t.name}<input required name="name" type="text" /></label>
                   <label>{t.email}<input required name="email" type="email" /></label>
                   <label>{t.message}<textarea required name="message" rows={4} /></label>
                   {submitted && <p className="form-success"><Check size={15} />{t.success}</p>}
                   {submitError && <p className="form-error">{t.error}</p>}
                   <button type="submit" disabled={sending}>{sending ? t.sending : t.send}<ArrowRight size={16} className="flip-rtl" /></button>
-                </form>
+                </motion.form>
               </div>
             </motion.section>
           </main>
 
-          <footer className="site-footer">
+          <motion.footer className="site-footer" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={morphStagger}>
             <div className="stack-card-wrapper">
-              <div className="footer-top">
+              <motion.div className="footer-top" variants={morphReveal}>
                 <div className="footer-brand">
                   <a className="brand" href="#home" onClick={(event) => { event.preventDefault(); navigate('home'); }}>
                     <img src="/logo.png" alt="Al Shams Group" />
@@ -514,13 +524,13 @@ export default function App() {
                     </a>
                   </div>
                 </div>
-              </div>
-              <div className="footer-bottom">
+              </motion.div>
+              <motion.div className="footer-bottom" variants={morphReveal}>
                 <p>{t.rights}</p>
                 <p className="footer-credit">{t.devBy}</p>
-              </div>
+              </motion.div>
             </div>
-          </footer>
+          </motion.footer>
         </motion.div>
       </AnimatePresence>
     </div>
