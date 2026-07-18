@@ -4,12 +4,18 @@ import {
   ArrowDown,
   ArrowLeft,
   ArrowRight,
+  Car,
   Check,
+  Cog,
   Globe,
+  Laptop,
   Mail,
   MapPin,
   Menu,
   Phone,
+  Truck,
+  Wifi,
+  Wrench,
   X,
 } from 'lucide-react';
 
@@ -58,6 +64,10 @@ const copy = {
     phone: 'الهاتف',
     address: 'العنوان',
     addressValue: 'بغداد، العراق',
+    branchOne: 'الفرع الأول: بغداد – البلديات',
+    branchTwo: 'الفرع الثاني: بغداد – شارع الصناعة – مجمع النعمان التجاري',
+    website: 'www.alshams-group.com',
+    profilePdf: 'البروفايل التعريفي PDF',
     footerLine: 'حلول تجارية متكاملة.',
     rights: 'جميع الحقوق محفوظة © 2026 مجموعة الشمس',
   },
@@ -103,6 +113,10 @@ const copy = {
     phone: 'Phone',
     address: 'Address',
     addressValue: 'Baghdad, Iraq',
+    branchOne: 'Branch 1: Baghdad – Al-Baladiyat',
+    branchTwo: 'Branch 2: Baghdad – Al-Sina’a St. – Al-Nu’man Complex',
+    website: 'www.alshams-group.com',
+    profilePdf: 'Company profile PDF',
     footerLine: 'Integrated commercial solutions.',
     rights: 'All rights reserved © 2026 Al Shams Group',
   },
@@ -208,6 +222,29 @@ export default function App() {
       <main>
         <motion.section id="home" className="hero-section" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}>
           <div className="hero-backdrop" aria-hidden="true" />
+          <div className="hero-beam" aria-hidden="true" />
+          <div className="hero-network" aria-hidden="true">
+            <svg className="network-lines" viewBox="0 0 1440 800" preserveAspectRatio="none" fill="none">
+              <path id="nl1" d="M120 190 L720 560" />
+              <path id="nl2" d="M90 430 L720 560" />
+              <path id="nl3" d="M180 660 L720 560" />
+              <path id="nl4" d="M1320 170 L720 560" />
+              <path id="nl5" d="M1350 420 L720 560" />
+              <path id="nl6" d="M1260 650 L720 560" />
+              <circle className="net-pulse" r="3"><animateMotion dur="4.5s" repeatCount="indefinite"><mpath href="#nl1" /></animateMotion></circle>
+              <circle className="net-pulse" r="3"><animateMotion dur="5.2s" begin="1s" repeatCount="indefinite"><mpath href="#nl2" /></animateMotion></circle>
+              <circle className="net-pulse" r="3"><animateMotion dur="4.8s" begin="2s" repeatCount="indefinite"><mpath href="#nl3" /></animateMotion></circle>
+              <circle className="net-pulse" r="3"><animateMotion dur="5s" begin="0.5s" repeatCount="indefinite"><mpath href="#nl4" /></animateMotion></circle>
+              <circle className="net-pulse" r="3"><animateMotion dur="4.2s" begin="1.6s" repeatCount="indefinite"><mpath href="#nl5" /></animateMotion></circle>
+              <circle className="net-pulse" r="3"><animateMotion dur="5.6s" begin="2.4s" repeatCount="indefinite"><mpath href="#nl6" /></animateMotion></circle>
+            </svg>
+            <span className="net-node n1"><Laptop size={17} /></span>
+            <span className="net-node n2"><Wifi size={17} /></span>
+            <span className="net-node n3"><Truck size={17} /></span>
+            <span className="net-node n4"><Car size={17} /></span>
+            <span className="net-node n5"><Cog size={17} /></span>
+            <span className="net-node n6"><Wrench size={17} /></span>
+          </div>
           <div className="stack-card-wrapper hero-inner">
             <motion.div className="hero-copy" initial="hidden" animate="visible" variants={{ hidden: {}, visible: { transition: { staggerChildren: .12, delayChildren: .25 } } }}>
               <motion.p className="eyebrow" variants={fadeUp}>{t.heroEyebrow}</motion.p>
@@ -318,7 +355,9 @@ export default function App() {
               <div className="contact-details">
                 <span><Phone size={15} />07718194628</span>
                 <span><Mail size={15} />Info@alshams-group.com</span>
-                <span><MapPin size={15} />{t.addressValue}</span>
+                <span><Globe size={15} />{t.website}</span>
+                <span><MapPin size={15} />{t.branchOne}</span>
+                <span><MapPin size={15} />{t.branchTwo}</span>
               </div>
             </div>
             <form className="contact-form" onSubmit={submitForm}>
@@ -341,6 +380,7 @@ export default function App() {
         <p>{t.footerLine}</p>
         <div>
           <p>{t.rights}</p>
+          <a className="profile-link" href="/Alshams%20Group%20Profile.pdf" target="_blank" rel="noreferrer">{t.profilePdf}</a>
           <div className="social-list">{socials.map((social) => <a href="#contact" key={social} aria-label={`${social} social link`} onClick={(event) => { event.preventDefault(); navigate('contact'); }}>{social}</a>)}</div>
         </div>
       </footer>

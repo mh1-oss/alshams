@@ -343,6 +343,95 @@ html[dir='ltr'] .desktop-nav button {
     radial-gradient(ellipse 45% 35% at 50% 115%, rgba(198, 159, 114, 0.06) 0%, transparent 70%);
 }
 
+/* Warm light beam — Gcore-style corner glow */
+.hero-beam {
+  position: absolute;
+  top: -22%;
+  inset-inline-end: -14%;
+  width: 58%;
+  height: 62%;
+  z-index: -1;
+  pointer-events: none;
+  background: conic-gradient(from 210deg at 70% 20%, transparent 0deg, rgba(198, 120, 60, 0.22) 28deg, rgba(198, 159, 114, 0.1) 55deg, transparent 85deg);
+  filter: blur(42px);
+  animation: beamSway 9s ease-in-out infinite alternate;
+}
+
+@keyframes beamSway {
+  from {
+    opacity: 0.65;
+    transform: rotate(-3deg) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(4deg) translateY(6px);
+  }
+}
+
+/* Vector network — floating sector nodes linked to the group core */
+.hero-network {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.network-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.network-lines path {
+  stroke: rgba(198, 159, 114, 0.16);
+  stroke-width: 1;
+  stroke-dasharray: 5 7;
+  animation: lineFlow 30s linear infinite;
+}
+
+@keyframes lineFlow {
+  to {
+    stroke-dashoffset: -600;
+  }
+}
+
+.net-pulse {
+  fill: var(--color-accent);
+  filter: drop-shadow(0 0 6px rgba(198, 159, 114, 0.9));
+}
+
+.net-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  color: var(--color-accent);
+  background: rgba(23, 16, 10, 0.85);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 13px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 18px rgba(198, 159, 114, 0.12);
+  animation: nodeFloat 6s ease-in-out infinite;
+}
+
+.net-node.n1 { top: 20%; inset-inline-start: 6.5%; animation-delay: 0s; }
+.net-node.n2 { top: 50%; inset-inline-start: 4.5%; animation-delay: 1.2s; }
+.net-node.n3 { top: 79%; inset-inline-start: 10.5%; animation-delay: 2.1s; }
+.net-node.n4 { top: 18%; inset-inline-end: 6.5%; animation-delay: 0.7s; }
+.net-node.n5 { top: 49%; inset-inline-end: 4.5%; animation-delay: 1.7s; }
+.net-node.n6 { top: 78%; inset-inline-end: 10.5%; animation-delay: 2.6s; }
+
+@keyframes nodeFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
 .hero-inner {
   position: relative;
   z-index: 1;
@@ -989,6 +1078,17 @@ html[dir='ltr'] .mission-note span {
   flex-wrap: wrap;
 }
 
+.profile-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.profile-link:hover {
+  border-color: var(--color-accent);
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .site-header {
@@ -1018,6 +1118,10 @@ html[dir='ltr'] .mission-note span {
 
   .collection-pagination {
     padding-bottom: 0;
+  }
+
+  .hero-network {
+    display: none;
   }
 
   .hero-bottom {
@@ -1059,5 +1163,13 @@ html[dir='ltr'] .mission-note span {
   .site-footer > div {
     flex-direction: column;
     gap: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-beam,
+  .net-node,
+  .network-lines path {
+    animation: none;
   }
 }
