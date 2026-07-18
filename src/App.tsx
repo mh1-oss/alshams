@@ -490,18 +490,18 @@ export default function App() {
                     <img src="/logo.png" alt="Al Shams Group" />
                     <span>AL SHAMS<small>GROUP</small></span>
                   </a>
-                  <p style={{ marginTop: '1.5rem', maxWidth: '300px' }}>{t.footerLine}</p>
+                  <p className="footer-tagline">{t.footerLine}</p>
                 </div>
                 <div className="footer-links">
-                  <h4 style={{ color: 'var(--color-text)', marginBottom: '1.2rem' }}>{t.navAbout}</h4>
-                  <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                  <h4 className="footer-heading">{t.navAbout}</h4>
+                  <nav className="footer-nav">
                     <button onClick={() => navigate('home')}>{t.navHome}</button>
                     <button onClick={() => navigate('about')}>{t.navAbout}</button>
                     <button onClick={() => navigate('collection')}>{t.navCollection}</button>
                   </nav>
                 </div>
                 <div className="footer-socials">
-                  <h4 style={{ color: 'var(--color-text)', marginBottom: '1.2rem' }}>{t.navContact}</h4>
+                  <h4 className="footer-heading">{t.navContact}</h4>
                   <div className="social-list">
                     <a href="#contact" onClick={(e) => { e.preventDefault(); navigate('contact'); }}>
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
