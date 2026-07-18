@@ -285,8 +285,7 @@ html[dir='ltr'] .eyebrow {
   font-size: 0.82rem;
   font-weight: 500;
   color: var(--color-text-secondary);
-  padding: 0;
-  height: 100%;
+  padding: 0.3rem 0;
   display: flex;
   align-items: center;
   transition: color 0.3s ease;
