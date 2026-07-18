@@ -42,7 +42,7 @@
   --color-text-muted: #64748b;
   --color-border: rgba(255, 255, 255, 0.1);
   --color-border-strong: rgba(255, 255, 255, 0.2);
-  --header-bg: rgba(10, 10, 12, 0.85);
+  --header-bg: rgba(10, 10, 12, 0.65);
 }
 
 body {
@@ -198,12 +198,14 @@ html[dir='ltr'] .eyebrow {
   max-width: calc(100% - 2rem);
   margin-inline: auto;
   background: var(--header-bg);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid var(--color-border);
   border-radius: 999px;
   padding-inline: 1.5rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  /* Ensure backdrop-filter works on all browsers */
+  transform: translateZ(0);
 }
 
 .site-header::after {
@@ -267,6 +269,7 @@ html[dir='ltr'] .eyebrow {
   display: flex;
   align-items: center;
   gap: 2.4rem;
+  height: 100%;
 }
 
 .desktop-nav button {
@@ -274,7 +277,10 @@ html[dir='ltr'] .eyebrow {
   font-size: 0.82rem;
   font-weight: 500;
   color: var(--color-text-secondary);
-  padding: 0.3rem 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
   transition: color 0.3s ease;
 }
 
@@ -372,13 +378,14 @@ html[dir='ltr'] .desktop-nav button {
   z-index: 150;
   display: flex;
   flex-direction: column;
-  background: var(--bg-surface);
+  background: var(--header-bg);
   padding: 0.75rem;
   border-radius: 24px;
   border: 1px solid var(--color-border-strong);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transform: translateZ(0);
 }
 
 @media (min-width: 900px) {
