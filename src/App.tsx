@@ -137,6 +137,24 @@ function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 }
 
+function SwapText({ text }: { text: string }) {
+  return (
+    <span className="swap-text">
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={text}
+          initial={{ opacity: 0, y: 8, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, y: -8, filter: 'blur(4px)' }}
+          transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {text}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
 const fadeUp = {
   hidden: { opacity: 0, y: 25 },
   visible: { opacity: 1, y: 0 },
@@ -199,26 +217,35 @@ export default function App() {
           <span>AL SHAMS<small>GROUP</small></span>
         </a>
         <nav className="desktop-nav" aria-label="Primary navigation">
-          <button onClick={() => navigate('home')}>{t.navHome}</button>
-          <button onClick={() => navigate('about')}>{t.navAbout}</button>
-          <button onClick={() => navigate('collection')}>{t.navCollection}</button>
-          <button onClick={() => navigate('contact')}>{t.navContact}</button>
+          <button onClick={() => navigate('home')}><SwapText text={t.navHome} /></button>
+          <button onClick={() => navigate('about')}><SwapText text={t.navAbout} /></button>
+          <button onClick={() => navigate('collection')}><SwapText text={t.navCollection} /></button>
+          <button onClick={() => navigate('contact')}><SwapText text={t.navContact} /></button>
         </nav>
         <div className="header-tools">
-          <button className="language-button" onClick={() => setLang(isArabic ? 'en' : 'ar')}><Globe size={14} />{t.language}</button>
+          <button className="language-button" onClick={() => setLang(isArabic ? 'en' : 'ar')}><Globe size={14} /><SwapText text={t.language} /></button>
           <button className="menu-button" aria-label="Toggle menu" onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X /> : <Menu />}</button>
         </div>
       </header>
 
       <AnimatePresence>
         {menuOpen && <motion.nav className="mobile-nav" initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}>
-          <button onClick={() => navigate('home')}>{t.navHome}</button>
-          <button onClick={() => navigate('about')}>{t.navAbout}</button>
-          <button onClick={() => navigate('collection')}>{t.navCollection}</button>
-          <button onClick={() => navigate('contact')}>{t.navContact}</button>
+          <button onClick={() => navigate('home')}><SwapText text={t.navHome} /></button>
+          <button onClick={() => navigate('about')}><SwapText text={t.navAbout} /></button>
+          <button onClick={() => navigate('collection')}><SwapText text={t.navCollection} /></button>
+          <button onClick={() => navigate('contact')}><SwapText text={t.navContact} /></button>
         </motion.nav>}
       </AnimatePresence>
 
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={lang}
+          className="lang-content"
+          initial={{ opacity: 0, y: 18, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, y: -14, filter: 'blur(8px)' }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        >
       <main>
         <motion.section id="home" className="hero-section" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}>
           <div className="hero-backdrop" aria-hidden="true" />
@@ -384,6 +411,8 @@ export default function App() {
           <div className="social-list">{socials.map((social) => <a href="#contact" key={social} aria-label={`${social} social link`} onClick={(event) => { event.preventDefault(); navigate('contact'); }}>{social}</a>)}</div>
         </div>
       </footer>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
